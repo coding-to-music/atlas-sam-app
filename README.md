@@ -13,6 +13,8 @@ https://github.com/coding-to-music/atlas-sam-app
 - get weather or other data
 - prevent deleting existing buckets
 - connect to free tier for database
+- dev and prod environments
+- deploy from github
 
 This project is a clone of the project: https://github.com/aws/aws-sam-cli-app-templates/tree/master/python3.8/cookiecutter-aws-sam-hello-python superchared with
 a MongoDB Atlas deployment!
