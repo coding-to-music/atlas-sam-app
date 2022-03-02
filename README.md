@@ -1,5 +1,7 @@
 # atlas-sam-app
 
+https://github.com/coding-to-music/atlas-sam-app
+
 This project is a clone of the project: https://github.com/aws/aws-sam-cli-app-templates/tree/master/python3.8/cookiecutter-aws-sam-hello-python superchared with
 a MongoDB Atlas deployment!
 
@@ -200,4 +202,115 @@ sam build
 sam deploy --guided --parameter-overrides $(./export-mongocli-parameters.py)
 
 --------------------------------------------------------------------------
+```
+
+```java
+Initiating deployment
+=====================
+File with same data already exists at atlas-sam-app/8c186d94ba289583a9cb011c46efc3e0.template, skipping upload
+
+Waiting for changeset to be created..
+
+CloudFormation stack changeset
+-----------------------------------------------------------------------------------------------------------------
+Operation                    LogicalResourceId            ResourceType                 Replacement
+-----------------------------------------------------------------------------------------------------------------
++ Add                        AtlasCluster                 MongoDB::Atlas::Cluster      N/A
++ Add                        AtlasDatabaseUser            MongoDB::Atlas::DatabaseUs   N/A
+                                                          er
++ Add                        AtlasProjectIPAccessList     MongoDB::Atlas::ProjectIpA   N/A
+                                                          ccessList
++ Add                        HelloWorldFunctionHelloWor   AWS::Lambda::Permission      N/A
+                             ldPermissionProd
++ Add                        HelloWorldFunction           AWS::Lambda::Function        N/A
++ Add                        ServerlessRestApiDeploymen   AWS::ApiGateway::Deploymen   N/A
+                             t47fc2d5f9d                  t
++ Add                        ServerlessRestApiProdStage   AWS::ApiGateway::Stage       N/A
++ Add                        ServerlessRestApi            AWS::ApiGateway::RestApi     N/A
+* Modify                     AtlasProject                 MongoDB::Atlas::Project      True
+-----------------------------------------------------------------------------------------------------------------
+
+Changeset created successfully. arn:aws:cloudformation:us-east-1:708090526287:changeSet/samcli-deploy1646187846/3e6af1fd-1c1c-4513-879b-580d7d768755
+
+
+Previewing CloudFormation changeset before deployment
+======================================================
+Deploy this changeset? [y/N]: y
+
+2022-03-02 02:24:20 - Waiting for stack create/update to complete
+
+CloudFormation events from stack operations
+-----------------------------------------------------------------------------------------------------------------
+ResourceStatus               ResourceType                 LogicalResourceId            ResourceStatusReason
+-----------------------------------------------------------------------------------------------------------------
+DELETE_COMPLETE              MongoDB::Atlas::Project      AtlasProject                 Delete succeeded for the
+                                                                                       resources that failed to
+                                                                                       create.
+CREATE_IN_PROGRESS           MongoDB::Atlas::Project      AtlasProject                 -
+CREATE_IN_PROGRESS           MongoDB::Atlas::Project      AtlasProject                 Resource creation
+                                                                                       Initiated
+CREATE_COMPLETE              MongoDB::Atlas::Project      AtlasProject                 -
+CREATE_IN_PROGRESS           MongoDB::Atlas::DatabaseUs   AtlasDatabaseUser            -
+                             er
+CREATE_IN_PROGRESS           MongoDB::Atlas::Cluster      AtlasCluster                 -
+CREATE_IN_PROGRESS           MongoDB::Atlas::ProjectIpA   AtlasProjectIPAccessList     -
+                             ccessList
+CREATE_IN_PROGRESS           MongoDB::Atlas::ProjectIpA   AtlasProjectIPAccessList     Resource creation
+                             ccessList                                                 Initiated
+CREATE_IN_PROGRESS           MongoDB::Atlas::DatabaseUs   AtlasDatabaseUser            Resource creation
+                             er                                                        Initiated
+CREATE_IN_PROGRESS           MongoDB::Atlas::Cluster      AtlasCluster                 Resource creation
+                                                                                       Initiated
+CREATE_COMPLETE              MongoDB::Atlas::ProjectIpA   AtlasProjectIPAccessList     -
+                             ccessList
+CREATE_COMPLETE              MongoDB::Atlas::DatabaseUs   AtlasDatabaseUser            -
+                             er
+CREATE_COMPLETE              MongoDB::Atlas::Cluster      AtlasCluster                 -
+CREATE_IN_PROGRESS           AWS::Lambda::Function        HelloWorldFunction           -
+CREATE_IN_PROGRESS           AWS::Lambda::Function        HelloWorldFunction           Resource creation
+                                                                                       Initiated
+CREATE_COMPLETE              AWS::Lambda::Function        HelloWorldFunction           -
+CREATE_IN_PROGRESS           AWS::ApiGateway::RestApi     ServerlessRestApi            -
+CREATE_IN_PROGRESS           AWS::ApiGateway::RestApi     ServerlessRestApi            Resource creation
+                                                                                       Initiated
+CREATE_COMPLETE              AWS::ApiGateway::RestApi     ServerlessRestApi            -
+CREATE_IN_PROGRESS           AWS::ApiGateway::Deploymen   ServerlessRestApiDeploymen   -
+                             t                            t47fc2d5f9d
+CREATE_IN_PROGRESS           AWS::Lambda::Permission      HelloWorldFunctionHelloWor   -
+                                                          ldPermissionProd
+CREATE_IN_PROGRESS           AWS::Lambda::Permission      HelloWorldFunctionHelloWor   Resource creation
+                                                          ldPermissionProd             Initiated
+CREATE_COMPLETE              AWS::ApiGateway::Deploymen   ServerlessRestApiDeploymen   -
+                             t                            t47fc2d5f9d
+CREATE_IN_PROGRESS           AWS::ApiGateway::Deploymen   ServerlessRestApiDeploymen   Resource creation
+                             t                            t47fc2d5f9d                  Initiated
+CREATE_IN_PROGRESS           AWS::ApiGateway::Stage       ServerlessRestApiProdStage   -
+CREATE_IN_PROGRESS           AWS::ApiGateway::Stage       ServerlessRestApiProdStage   Resource creation
+                                                                                       Initiated
+CREATE_COMPLETE              AWS::ApiGateway::Stage       ServerlessRestApiProdStage   -
+CREATE_COMPLETE              AWS::Lambda::Permission      HelloWorldFunctionHelloWor   -
+                                                          ldPermissionProd
+UPDATE_COMPLETE_CLEANUP_IN   AWS::CloudFormation::Stack   atlas-sam-app                -
+_PROGRESS
+UPDATE_COMPLETE              AWS::CloudFormation::Stack   atlas-sam-app                -
+-----------------------------------------------------------------------------------------------------------------
+
+CloudFormation outputs from deployed stack
+------------------------------------------------------------------------------------------------------------------
+Outputs
+------------------------------------------------------------------------------------------------------------------
+Key                 HelloWorldFunctionIamRole
+Description         Implicit IAM Role created for Hello World function
+Value               arn:aws:iam::708090526287:role/atlas-sam-app-HelloWorldFunctionRole-2ZEQ6FOMJ74G
+
+Key                 HelloWorldApi
+Description         API Gateway endpoint URL for Prod stage for Hello World function
+Value               https://3ng095f25d.execute-api.us-east-1.amazonaws.com/Prod/hello/
+
+Key                 HelloWorldFunction
+Description         Hello World Lambda Function ARN
+Value               arn:aws:lambda:us-east-1:708090526287:function:atlas-sam-app-HelloWorldFunction-yS6LMilvTn2r
+------------------------------------------------------------------------------------------------------------------
+
+Successfully created/updated stack - atlas-sam-app in us-east-1
 ```

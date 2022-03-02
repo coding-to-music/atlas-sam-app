@@ -1,3 +1,15 @@
 version=0.1
 [default.global.parameters]
 stack_name = "atlas-sam-app"
+
+[default.deploy]
+[default.deploy.parameters]
+s3_bucket = "aws-sam-cli-managed-default-samclisourcebucket-1hniiozy06797"
+s3_prefix = "atlas-sam-app"
+region = "us-east-1"
+confirm_changeset = true
+capabilities = "CAPABILITY_IAM"
+disable_rollback = true
+parameter_overrides = "PublicKey=\"hefjqdei\" PrivateKey=\"614213f5-db95-4608-b93f-b465081ddcbc\" OrgId=\"6146f93aae9d2e485665a0b0\" ProjectName=\"get-started-aws-lambda-python\" ClusterName=\"Cluster-1\" ClusterInstanceSize=\"M10\" ClusterRegion=\"us-east-1\" ClusterMongoDBMajorVersion=\"4.4\" DatabaseUserUsername=\"get-started-aws-sam\" DatabaseUserPassword=\"CZtUvvkMGSXXJBsW\" DatabaseUserRoleDatabaseName=\"test\""
+image_repositories = []
+
