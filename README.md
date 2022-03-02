@@ -2,6 +2,18 @@
 
 https://github.com/coding-to-music/atlas-sam-app
 
+### Tasks
+
+- move domain
+- use domain
+- attach existing S3 buckets
+- attach existing SNS topics
+- Add more routes
+- Better landing page
+- get weather or other data
+- prevent deleting existing buckets
+- connect to free tier for database
+
 This project is a clone of the project: https://github.com/aws/aws-sam-cli-app-templates/tree/master/python3.8/cookiecutter-aws-sam-hello-python superchared with
 a MongoDB Atlas deployment!
 
@@ -314,3 +326,76 @@ Value               arn:aws:lambda:us-east-1:708090526287:function:atlas-sam-app
 
 Successfully created/updated stack - atlas-sam-app in us-east-1
 ```
+
+# Cleaning Up
+
+```java
+aws cloudformation list-stacks
+```
+
+## Cleanup
+
+To delete the sample application that you created, use the AWS CLI. Assuming you used your project name for the stack name, you can run the following:
+
+```bash
+atlas-sam-app$ aws cloudformation delete-stack --stack-name atlas-sam-app
+```
+
+## AWS IAM permissions
+
+From https://github.com/mongodb-developer/get-started-aws-cfn/blob/main/README.md
+
+May not be required for this project
+
+This project requires various kinds of AWS permissions.
+
+To run the setup step (`[get-setup.sh](./get-setup.sh)`) AWS team account owners should be able to assume the [policy-quickstart-mongodb-atlas-installer.yaml](./policy-quickstart-mongodb-atlas-installer.yaml) sample permission set. This step requires above average permissions.
+
+For the started step (`[get-started.sh](./get-started.sh)`) AWS users should be able to assume the [policy-quickstart-mongodb-atlas-user.yaml](./policy-quickstart-mongodb-atlas-user.yaml) sample permission set.
+
+We've included a sample minimal example set of policies, which you can assume safely and use with this project.
+
+Create new AWS IAM roles with the supplied policies. Below are examples on how to do that via AWS CloudFormation.
+You can then assume the role with `aws sts assume-role`. We recommend this for exporting your AWS environment into the Docker environment to run this project (note the `--role-arn` used in step 2 is created in the step 1).
+
+#### AWS::IAM::Role MongoDB-Atlas-CloudFormation-Installer
+
+```
+aws cloudformation create-stack \
+  --capabilities CAPABILITY_NAMED_IAM \
+  --template-body file://./policy-quickstart-mongodb-atlas-installer.yaml \
+  --stack-name quickstart-mongodb-atlas-installer-role
+```
+
+```
+source <(aws sts assume-role --role-arn arn:aws:iam::<YOUR_AWS_ACCOUNT>:role/MongoDB-Atlas-CloudFormation-Installer --role-session-name "get-started-installer"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
+```
+
+#### AWS::IAM::Role MongoDB-Atlas-CloudFormation-User
+
+```
+aws cloudformation create-stack \
+  --capabilities CAPABILITY_NAMED_IAM \
+  --template-body file://./policy-quickstart-mongodb-atlas-user.yaml \
+  --stack-name quickstart-mongodb-atlas-user-role
+```
+
+```
+source <(aws sts assume-role --role-arn arn:aws:iam::<YOUR_AWS_ACCOUNT>:role/MongoDB-Atlas-CloudFormation-User --role-session-name "get-started-user"  | jq -r  '.Credentials | @sh "export AWS_SESSION_TOKEN=\(.SessionToken)\nexport AWS_ACCESS_KEY_ID=\(.AccessKeyId)\nexport AWS_SECRET_ACCESS_KEY=\(.SecretAccessKey) "')
+```
+
+Remember to UNSET your `AWS_*` environment variables to "un-assume" the role.
+
+```
+source <(env | awk -F= '/AWS/ {print "unset ", $1}'
+```
+
+(Reference: [get-token.md](https://gist.github.com/brianredbeard/035ee1419bc38a0e2d854fb828d585d7))
+
+<sup>
+<a id="qs-repo">[1]</a> Access coming soon: [AWS Quick Start for MongoDB Atlas](https://github.com/aws-quickstart/quickstart-mongodb-atlas)
+</sup>
+
+<sup>
+<a id="qs-res-repo">[2]</a> Access coming soon: [MongoDB Atlas CloudFormation resources](https://github.com/aws-quickstart/quickstart-mongodb-atlas-resources)
+</sup>
